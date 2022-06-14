@@ -1,0 +1,40 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MyFirstSubmission" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/bluegrey</item>
+        <item name="colorPrimaryVariant">@color/bluegrey_dark</item>
+        <item name="colorOnPrimary">@color/light</item>
+        <item name="colorSecondary">@color/teal</item>
+        <item name="colorSecondaryVariant">@color/teal_dark</item>
+        <item name="colorOnSecondary">@color/dark</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+    <style name="IconItem">
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_width">18dp</item>
+    </style>
+    <style name="IconItem.Margin">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+    <style name="TextContent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="TextContent.Large">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextContent.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextContent.Subtitle">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+    <style name="TextContent.Detail">
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+</resources>
