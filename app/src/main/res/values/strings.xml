@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFirstSubmission</string>
+    <string name="app_name">Github Search</string>
     <string name="profile_name">My name is human</string>
     <string name="splash_screen_text">Github User App</string>
     <string name="image_splash">image splash</string>
@@ -7,6 +7,7 @@
     <string name="image_item_profile">image item profile</string>
     <string name="icon_work">icon work</string>
     <string name="icon_place">icon place</string>
+    <string name="search">Search</string>
     <string-array name="username">
         <item>JakeWharton</item>
         <item>amitshekhariitbhu</item>
