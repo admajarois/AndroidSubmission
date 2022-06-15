@@ -30,39 +30,11 @@
         <TextView
             android:id="@+id/tv_item_username"
             style="@style/TextContent.Title"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_item_photo"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Username" />
-
-        <ImageView
-            android:id="@+id/ic_work"
-            style="@style/IconItem.Margin"
-            app:layout_constraintStart_toEndOf="@+id/img_item_photo"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_username"
-            app:srcCompat="@drawable/ic_baseline_work_24"
-            android:contentDescription="@string/icon_work" />
-
-        <ImageView
-            android:id="@+id/ic_place"
-            style="@style/IconItem.Margin"
-            app:layout_constraintStart_toEndOf="@+id/img_item_photo"
-            app:layout_constraintTop_toBottomOf="@+id/ic_work"
-            app:srcCompat="@drawable/ic_baseline_place_24"
-            android:contentDescription="@string/icon_place" />
-
-        <TextView
-            android:id="@+id/tv_item_work"
-            style="@style/TextContent.Subtitle"
-            tools:text="Working at"
-            app:layout_constraintStart_toEndOf="@+id/ic_work"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_username" />
-
-        <TextView
-            android:id="@+id/tv_item_live"
-            style="@style/TextContent.Subtitle"
-            tools:text="I live at"
-            app:layout_constraintStart_toEndOf="@+id/ic_place"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_work" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

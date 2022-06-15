@@ -1,10 +1,11 @@
-package com.admaja.myfirstsubmission
+package com.admaja.myfirstsubmission.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import com.admaja.myfirstsubmission.activity.MainActivity
 import com.admaja.myfirstsubmission.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
