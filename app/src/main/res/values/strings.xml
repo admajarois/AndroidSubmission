@@ -8,6 +8,7 @@
     <string name="icon_work">icon work</string>
     <string name="icon_place">icon place</string>
     <string name="search">Search</string>
+    <string name="no_data">Tidak ada data ditampilkan</string>
     <string-array name="username">
         <item>JakeWharton</item>
         <item>amitshekhariitbhu</item>

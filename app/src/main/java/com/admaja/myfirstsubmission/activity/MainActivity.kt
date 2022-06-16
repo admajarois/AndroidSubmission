@@ -39,11 +39,16 @@ class MainActivity : AppCompatActivity() {
              rvProfile.adapter = userAdapter
          }
         userViewModel.getSearchUser().observe(this, {
-            if (it!=null) {
+            if (it == null) {
+                showNoDataText(true)
+            }else {
                 userAdapter.setList(it)
+                showNoDataText(false)
                 showLoading(false)
             }
         })
+        showLoading(false)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,8 +63,8 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String): Boolean {
                 showLoading(true)
+                showNoDataText(false)
                 userViewModel.setSearchUser(query)
-                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
                 searchView.clearFocus()
                 return true
             }
@@ -70,6 +75,14 @@ class MainActivity : AppCompatActivity() {
 
         })
         return true
+    }
+
+    private fun showNoDataText(state: Boolean) {
+        if(state) {
+            binding.tvNoItem.visibility = View.VISIBLE
+        }else {
+            binding.tvNoItem.visibility = View.GONE
+        }
     }
 
     private fun showLoading(state: Boolean) {
