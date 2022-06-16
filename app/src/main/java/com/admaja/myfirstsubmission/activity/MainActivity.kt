@@ -1,50 +1,38 @@
 package com.admaja.myfirstsubmission.activity
 
 import android.app.SearchManager
-import android.content.AbstractThreadedSyncAdapter
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.admaja.myfirstsubmission.R
 import com.admaja.myfirstsubmission.adapter.ListUsersAdapter
+import com.admaja.myfirstsubmission.api.ItemsItem
 import com.admaja.myfirstsubmission.databinding.ActivityMainBinding
-import com.admaja.myfirstsubmission.models.Users
 import com.admaja.myfirstsubmission.ui.UserViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var userViewModel:UserViewModel
     private lateinit var userAdapter: ListUsersAdapter
+    private val list = ArrayList<ItemsItem>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userAdapter = ListUsersAdapter()
-        userAdapter.notifyDataSetChanged()
         userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
-         binding.apply {
-             rvProfile.layoutManager = LinearLayoutManager(this@MainActivity)
-             rvProfile.setHasFixedSize(true)
-             rvProfile.adapter = userAdapter
-         }
+        showRecyclerList()
         userViewModel.getSearchUser().observe(this, {
-            if (it == null) {
-                showNoDataText(true)
-            }else {
+            if (it!=null) {
                 userAdapter.setList(it)
-                showNoDataText(false)
-                showLoading(false)
             }
         })
         showLoading(false)
@@ -75,6 +63,30 @@ class MainActivity : AppCompatActivity() {
 
         })
         return true
+    }
+
+    private fun showRecyclerList() {
+        userAdapter = ListUsersAdapter(list)
+        userAdapter.notifyDataSetChanged()
+//        tempat userViewModel
+        binding.apply {
+            rvProfile.layoutManager = LinearLayoutManager(this@MainActivity)
+            rvProfile.setHasFixedSize(true)
+            rvProfile.adapter = userAdapter
+        }
+        userAdapter.setItemClickCallback(object : ListUsersAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ItemsItem) {
+                showSelectedUser(data)
+            }
+
+        })
+
+    }
+
+    private fun showSelectedUser(data: ItemsItem) {
+        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_USERS, data)
+        startActivity(intent)
     }
 
     private fun showNoDataText(state: Boolean) {

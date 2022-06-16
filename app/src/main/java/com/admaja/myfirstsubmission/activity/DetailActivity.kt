@@ -3,7 +3,6 @@ package com.admaja.myfirstsubmission.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.admaja.myfirstsubmission.databinding.ActivityDetailBinding
-import com.admaja.myfirstsubmission.models.Users
 import com.bumptech.glide.Glide
 
 class DetailActivity : AppCompatActivity() {
