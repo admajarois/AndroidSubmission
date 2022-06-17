@@ -16,13 +16,13 @@
         android:theme="@style/Theme.MyFirstSubmission"
         tools:targetApi="31">
         <activity
-            android:name=".activity.DetailActivity"
+            android:name="com.admaja.myfirstsubmission.ui.activity.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.admaja.myfirstsubmission.ui.activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.admaja.myfirstsubmission.ui.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.admaja.myfirstsubmission.adapter
+package com.admaja.myfirstsubmission.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,6 @@ import com.admaja.myfirstsubmission.api.ItemsItem
 import com.admaja.myfirstsubmission.databinding.ItemRowProfileBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.transition.DrawableCrossFadeTransition
 
 
 class ListUsersAdapter(private val list: ArrayList<ItemsItem>): RecyclerView.Adapter<ListUsersAdapter.UserViewHolder>() {

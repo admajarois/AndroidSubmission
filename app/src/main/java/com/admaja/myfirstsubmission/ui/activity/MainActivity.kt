@@ -1,4 +1,4 @@
-package com.admaja.myfirstsubmission.activity
+package com.admaja.myfirstsubmission.ui.activity
 
 import android.app.SearchManager
 import android.content.Context
@@ -11,7 +11,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.admaja.myfirstsubmission.R
-import com.admaja.myfirstsubmission.adapter.ListUsersAdapter
+import com.admaja.myfirstsubmission.ui.adapter.ListUsersAdapter
 import com.admaja.myfirstsubmission.api.ItemsItem
 import com.admaja.myfirstsubmission.databinding.ActivityMainBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel

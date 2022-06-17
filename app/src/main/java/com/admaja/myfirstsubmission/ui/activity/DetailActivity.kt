@@ -1,8 +1,7 @@
-package com.admaja.myfirstsubmission.activity
+package com.admaja.myfirstsubmission.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.admaja.myfirstsubmission.api.DetailResponse
