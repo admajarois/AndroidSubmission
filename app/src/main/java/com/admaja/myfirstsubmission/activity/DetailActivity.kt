@@ -14,7 +14,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//
+
 //        val user = intent.getParcelableExtra<Users>(EXTRA_USERS) as Users
 //        supportActionBar!!.title = user.username
 //        binding.tvName.text = user.name

@@ -3,7 +3,6 @@ package com.admaja.myfirstsubmission.activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import android.os.Bundle
