@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.admaja.myfirstsubmission.api.ApiConfig
+import com.admaja.myfirstsubmission.api.DetailResponse
 import com.admaja.myfirstsubmission.api.ItemsItem
 import com.admaja.myfirstsubmission.api.UsersResponse
 import retrofit2.Call
@@ -14,6 +15,29 @@ import retrofit2.Response
 class UserViewModel: ViewModel() {
     private val _user = MutableLiveData<ArrayList<ItemsItem>>()
     val user: LiveData<ArrayList<ItemsItem>> = _user
+
+    private val _detail = MutableLiveData<DetailResponse>()
+    val detail: LiveData<DetailResponse> = _detail
+
+    fun detailUsers(user: String) {
+        val client = ApiConfig.getApiService().getDetailUser(user)
+        client.enqueue(object : Callback<DetailResponse> {
+            override fun onResponse(
+                call: Call<DetailResponse>,
+                response: Response<DetailResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _detail.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure : ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure : ${t.message.toString()}")
+            }
+        })
+    }
 
     fun setSearchUser(query: String) {
         val client = ApiConfig.getApiService().getUser(query)

@@ -14,7 +14,8 @@ data class UsersResponse(
 	val incompleteResults: Boolean,
 
 	@field:SerializedName("items")
-	val items: ArrayList<ItemsItem>
+	val items: ArrayList<ItemsItem>,
+
 ) : Parcelable
 
 @Parcelize

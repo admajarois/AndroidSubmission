@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity() {
         userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         showRecyclerList()
         userViewModel.getSearchUser().observe(this, {
+            showLoading(false)
             if (it!=null) {
                 userAdapter.setList(it)
             }
         })
         showLoading(false)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
