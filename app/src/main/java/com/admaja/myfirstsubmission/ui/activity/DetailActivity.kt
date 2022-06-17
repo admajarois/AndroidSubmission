@@ -2,21 +2,24 @@ package com.admaja.myfirstsubmission.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log.v
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
+import com.admaja.myfirstsubmission.R
 import com.admaja.myfirstsubmission.api.DetailResponse
 import com.admaja.myfirstsubmission.api.ItemsItem
 import com.admaja.myfirstsubmission.databinding.ActivityDetailBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel
+import com.admaja.myfirstsubmission.ui.adapter.SectionsPagerAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var userViewModel: UserViewModel
-    companion object {
-        const val EXTRA_USERS = "extra_users"
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -24,12 +27,18 @@ class DetailActivity : AppCompatActivity() {
 
         userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         val user = intent.getParcelableExtra<ItemsItem>(EXTRA_USERS) as ItemsItem
+        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        binding.viewPager.adapter = sectionsPagerAdapter
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TILES[position])
+        }.attach()
         userViewModel.detailUsers(user.login)
         userViewModel.detail.observe(this, { detail ->
             showLoading(false)
             supportActionBar?.title = detail.login
             setUserDetail(detail)
         })
+
         showLoading(true)
     }
 
@@ -65,5 +74,14 @@ class DetailActivity : AppCompatActivity() {
                 pbImg.visibility = View.INVISIBLE
             }
         }
+    }
+
+    companion object {
+        const val EXTRA_USERS = "extra_users"
+        @StringRes
+        private val TAB_TILES = intArrayOf(
+            R.string.followers,
+            R.string.following
+        )
     }
 }
