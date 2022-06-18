@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class FollowersResponse(
 
 	@field:SerializedName("FollowersResponse")
-	val followersResponse: List<FollowersResponseItem>
+	val followersResponse: ArrayList<FollowersResponseItem>
 )
 
 data class FollowersResponseItem(

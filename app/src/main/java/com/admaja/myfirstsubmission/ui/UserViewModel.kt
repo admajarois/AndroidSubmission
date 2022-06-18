@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.admaja.myfirstsubmission.api.ApiConfig
-import com.admaja.myfirstsubmission.api.DetailResponse
-import com.admaja.myfirstsubmission.api.ItemsItem
-import com.admaja.myfirstsubmission.api.UsersResponse
+import com.admaja.myfirstsubmission.api.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +15,53 @@ class UserViewModel: ViewModel() {
 
     private val _detail = MutableLiveData<DetailResponse>()
     val detail: LiveData<DetailResponse> = _detail
+
+    private val _followers = MutableLiveData<ArrayList<FollowersResponseItem>>()
+    val followers: LiveData<ArrayList<FollowersResponseItem>> = _followers
+
+    private val _following = MutableLiveData<ArrayList<FollowingResponseItem>>()
+    val following: LiveData<ArrayList<FollowingResponseItem>> = _following
+
+    fun setFollowers(user: String?) {
+        val client = ApiConfig.getApiService().getFollowers(user)
+        client.enqueue(object : Callback<ArrayList<FollowersResponseItem>>{
+            override fun onResponse(
+                call: Call<ArrayList<FollowersResponseItem>>,
+                response: Response<ArrayList<FollowersResponseItem>>
+            ) {
+                if (response.isSuccessful) {
+                    _followers.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<FollowersResponseItem>>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+
+        })
+    }
+
+//    fun getFollowing(user: String) {
+//        val client = ApiConfig.getApiService().getFollowing(user)
+//        client.enqueue(object : Callback<FollowingResponse>{
+//            override fun onResponse(
+//                call: Call<FollowingResponse>,
+//                response: Response<FollowingResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                    _following.value = response.body()?.followingResponse
+//                }else {
+//                    Log.e(TAG, "onFailure: ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<FollowingResponse>, t: Throwable) {
+//                Log.e(TAG, "onFailure: ${t.message.toString()}")
+//            }
+//        })
+//    }
 
     fun detailUsers(user: String) {
         val client = ApiConfig.getApiService().getDetailUser(user)
@@ -60,6 +104,12 @@ class UserViewModel: ViewModel() {
     fun getSearchUser(): LiveData<ArrayList<ItemsItem>> {
         return user
     }
+
+    fun getUsersFollowers(): LiveData<ArrayList<FollowersResponseItem>> {
+          return followers
+    }
+
+
 
     companion object {
         private const val TAG = "MainViewModel"

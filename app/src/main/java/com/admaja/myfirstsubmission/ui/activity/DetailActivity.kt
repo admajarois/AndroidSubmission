@@ -25,13 +25,15 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         val user = intent.getParcelableExtra<ItemsItem>(EXTRA_USERS) as ItemsItem
-        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        val bundle = Bundle()
+        bundle.putString(EXTRA_USERS, user.login)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, bundle)
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TILES[position])
         }.attach()
+        userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         userViewModel.detailUsers(user.login)
         userViewModel.detail.observe(this, { detail ->
             showLoading(false)
@@ -44,7 +46,11 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setUserDetail(detail: DetailResponse) {
         binding.apply {
-            tvName.text = detail.login
+            tvName.text = if (detail.name != null) {
+                detail.name.toString()
+            } else {
+                detail.login
+            }
             tvFollowers.text = detail.followers.toString()
             tvFollowing.text = detail.following.toString()
             tvRepository.text = detail.publicRepos.toString()
