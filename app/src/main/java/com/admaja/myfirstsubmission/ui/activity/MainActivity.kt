@@ -29,13 +29,18 @@ class MainActivity : AppCompatActivity() {
 
         userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         showRecyclerList()
-        userViewModel.getSearchUser().observe(this, {
-            showLoading(false)
+        userViewModel.user.observe(this, {
             if (it!=null) {
                 userAdapter.setList(it)
             }
         })
-        showLoading(false)
+        userViewModel.isLoading.observe(this, {
+            showLoading(it)
+        })
+
+        userViewModel.noData.observe(this, {
+            showNoDataText(it)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -67,7 +72,6 @@ class MainActivity : AppCompatActivity() {
     private fun showRecyclerList() {
         userAdapter = ListUsersAdapter(list)
         userAdapter.notifyDataSetChanged()
-//        tempat userViewModel
         binding.apply {
             rvProfile.layoutManager = LinearLayoutManager(this@MainActivity)
             rvProfile.setHasFixedSize(true)
@@ -88,16 +92,16 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showNoDataText(state: Boolean) {
-        if(state) {
+    private fun showNoDataText(noData: Boolean) {
+        if(noData) {
             binding.tvNoItem.visibility = View.VISIBLE
         }else {
             binding.tvNoItem.visibility = View.GONE
         }
     }
 
-    private fun showLoading(state: Boolean) {
-        if (state) {
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.INVISIBLE

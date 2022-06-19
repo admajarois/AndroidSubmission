@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.admaja.myfirstsubmission.api.FollowersResponseItem
-import com.admaja.myfirstsubmission.databinding.FragmentFollowersBinding
+import com.admaja.myfirstsubmission.databinding.FragmentFollowBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel
 import com.admaja.myfirstsubmission.ui.activity.DetailActivity
 import com.admaja.myfirstsubmission.ui.adapter.FollowersAdapter
@@ -16,7 +16,7 @@ import com.admaja.myfirstsubmission.ui.adapter.FollowersAdapter
 class FollowersFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
-    private lateinit var binding: FragmentFollowersBinding
+    private lateinit var binding: FragmentFollowBinding
     private lateinit var followersAdapter: FollowersAdapter
     private val list = ArrayList<FollowersResponseItem>()
     private lateinit var username:String
@@ -25,7 +25,7 @@ class FollowersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFollowersBinding.inflate(inflater, container, false)
+        binding = FragmentFollowBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -37,7 +37,7 @@ class FollowersFragment : Fragment() {
         userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         showRecycleList()
         userViewModel.setFollowers(username)
-        userViewModel.getUsersFollowers().observe(viewLifecycleOwner, {
+        userViewModel.followers.observe(viewLifecycleOwner, {
             shoLoading(false)
             if (it != null) {
                 followersAdapter.setList(it)
@@ -49,9 +49,9 @@ class FollowersFragment : Fragment() {
         followersAdapter = FollowersAdapter(list)
         followersAdapter.notifyDataSetChanged()
         binding.apply {
-            rvFollowers.layoutManager = LinearLayoutManager(context)
-            rvFollowers.setHasFixedSize(true)
-            rvFollowers.adapter = followersAdapter
+            rvFollow.layoutManager = LinearLayoutManager(context)
+            rvFollow.setHasFixedSize(true)
+            rvFollow.adapter = followersAdapter
         }
     }
 
