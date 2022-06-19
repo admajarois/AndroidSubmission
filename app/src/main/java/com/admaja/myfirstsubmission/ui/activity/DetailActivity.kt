@@ -36,12 +36,12 @@ class DetailActivity : AppCompatActivity() {
         userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         userViewModel.detailUsers(user.login)
         userViewModel.detail.observe(this, { detail ->
-            showLoading(false)
             supportActionBar?.title = detail.login
             setUserDetail(detail)
         })
-
-        showLoading(true)
+        userViewModel.isLoading.observe(this,{
+            showLoading(it)
+        })
     }
 
     private fun setUserDetail(detail: DetailResponse) {
@@ -62,8 +62,8 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading(state: Boolean) {
-        if (state) {
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
             binding.apply {
                 pbFollowers.visibility = View.VISIBLE
                 pbName.visibility = View.VISIBLE

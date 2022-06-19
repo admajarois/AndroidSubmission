@@ -38,10 +38,12 @@ class FollowersFragment : Fragment() {
         showRecycleList()
         userViewModel.setFollowers(username)
         userViewModel.followers.observe(viewLifecycleOwner, {
-            shoLoading(false)
             if (it != null) {
                 followersAdapter.setList(it)
             }
+        })
+        userViewModel.isLoading.observe(viewLifecycleOwner, {
+            shoLoading(it)
         })
     }
 

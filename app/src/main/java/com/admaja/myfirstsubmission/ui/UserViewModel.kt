@@ -88,7 +88,6 @@ class UserViewModel: ViewModel() {
 
     fun detailUsers(user: String) {
         _isLoading.value = true
-        _noData.value = false
         val client = ApiConfig.getApiService().getDetailUser(user)
         client.enqueue(object : Callback<DetailResponse> {
             override fun onResponse(
@@ -96,7 +95,6 @@ class UserViewModel: ViewModel() {
                 response: Response<DetailResponse>
             ) {
                 _isLoading.value = false
-                _noData.value = false
                 if (response.isSuccessful) {
                     _detail.value = response.body()
                 } else {
@@ -106,7 +104,6 @@ class UserViewModel: ViewModel() {
 
             override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
                 _isLoading.value = false
-                _noData.value = true
                 Log.e(TAG, "onFailure : ${t.message.toString()}")
             }
         })

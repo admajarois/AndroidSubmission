@@ -39,9 +39,13 @@ class FollowingFragment : Fragment() {
         showRecycleList()
         userViewModel.setFollowing(username)
         userViewModel.following.observe(viewLifecycleOwner, {
-            shoLoading(false)
             if (it != null) {
                 followingAdapter.setList(it)
+            }
+        })
+        userViewModel.isLoading.observe(viewLifecycleOwner, {
+            if (it) {
+                shoLoading(it)
             }
         })
     }
@@ -56,8 +60,8 @@ class FollowingFragment : Fragment() {
         }
     }
 
-    private fun shoLoading(state: Boolean) {
-        if (state) {
+    private fun shoLoading(isLoading: Boolean) {
+        if (isLoading) {
             binding.pbLoading.visibility = View.VISIBLE
         } else {
             binding.pbLoading.visibility = View.INVISIBLE
