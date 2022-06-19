@@ -35,7 +35,6 @@ class UserViewModel: ViewModel() {
 
     fun setFollowers(user: String) {
         _isLoading.value = true
-        _noData.value = false
         val client = ApiConfig.getApiService().getFollowers(user)
         client.enqueue(object : Callback<ArrayList<FollowersResponseItem>>{
             override fun onResponse(
@@ -43,7 +42,6 @@ class UserViewModel: ViewModel() {
                 response: Response<ArrayList<FollowersResponseItem>>
             ) {
                 _isLoading.value = false
-                _noData.value = false
                 if (response.isSuccessful) {
                     _followers.value = response.body()
                 } else {
@@ -53,7 +51,6 @@ class UserViewModel: ViewModel() {
 
             override fun onFailure(call: Call<ArrayList<FollowersResponseItem>>, t: Throwable) {
                 _isLoading.value = false
-                _noData.value = true
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
 
@@ -62,7 +59,6 @@ class UserViewModel: ViewModel() {
 
     fun setFollowing(user: String) {
         _isLoading.value = true
-        _noData.value = false
         val client = ApiConfig.getApiService().getFollowing(user)
         client.enqueue(object : Callback<ArrayList<FollowingResponseItem>>{
             override fun onResponse(
@@ -70,7 +66,6 @@ class UserViewModel: ViewModel() {
                 response: Response<ArrayList<FollowingResponseItem>>
             ) {
                 _isLoading.value = false
-                _noData.value = false
                 if (response.isSuccessful) {
                     _following.value = response.body()
                 }else {
@@ -80,7 +75,6 @@ class UserViewModel: ViewModel() {
 
             override fun onFailure(call: Call<ArrayList<FollowingResponseItem>>, t: Throwable) {
                 _isLoading.value = false
-                _noData.value = true
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })

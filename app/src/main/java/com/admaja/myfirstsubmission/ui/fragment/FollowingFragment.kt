@@ -44,9 +44,7 @@ class FollowingFragment : Fragment() {
             }
         })
         userViewModel.isLoading.observe(viewLifecycleOwner, {
-            if (it) {
                 shoLoading(it)
-            }
         })
     }
 
