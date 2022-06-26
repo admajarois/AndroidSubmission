@@ -30,7 +30,7 @@ class FollowingAdapter(private val list_following: ArrayList<FollowingResponseIt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowingHolder {
-        var view = ItemRowProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemRowProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FollowingHolder(view)
     }
 

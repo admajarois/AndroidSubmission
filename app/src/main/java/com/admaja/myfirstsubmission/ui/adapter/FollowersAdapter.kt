@@ -31,7 +31,7 @@ class FollowersAdapter(private val list_followers: ArrayList<FollowersResponseIt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowersVieHolder {
-        var view = ItemRowProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemRowProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FollowersVieHolder(view)
     }
 

@@ -2,7 +2,6 @@ package com.admaja.myfirstsubmission.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log.v
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
@@ -35,13 +34,13 @@ class DetailActivity : AppCompatActivity() {
         }.attach()
         userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
         userViewModel.detailUsers(user.login)
-        userViewModel.detail.observe(this, { detail ->
+        userViewModel.detail.observe(this) { detail ->
             supportActionBar?.title = detail.login
             setUserDetail(detail)
-        })
-        userViewModel.isLoading.observe(this,{
+        }
+        userViewModel.isLoading.observe(this){
             showLoading(it)
-        })
+        }
     }
 
     private fun setUserDetail(detail: DetailResponse) {

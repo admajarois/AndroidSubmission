@@ -2,12 +2,6 @@ package com.admaja.myfirstsubmission.api
 
 import com.google.gson.annotations.SerializedName
 
-data class FollowingResponse(
-
-	@field:SerializedName("FollowingResponse")
-	val followingResponse: ArrayList<FollowingResponseItem>
-)
-
 data class FollowingResponseItem(
 
 	@field:SerializedName("gists_url")
