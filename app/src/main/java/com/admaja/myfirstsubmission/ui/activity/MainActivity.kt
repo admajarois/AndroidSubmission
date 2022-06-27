@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.Switch
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.admaja.myfirstsubmission.R
@@ -15,6 +16,7 @@ import com.admaja.myfirstsubmission.ui.adapter.ListUsersAdapter
 import com.admaja.myfirstsubmission.api.ItemsItem
 import com.admaja.myfirstsubmission.databinding.ActivityMainBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.search).actionView as SearchView
+        val darkMode = menu.findItem(R.id.dark_mode).actionView as SwitchMaterial
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = resources.getString(R.string.search)
@@ -66,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
         return true
     }
 
