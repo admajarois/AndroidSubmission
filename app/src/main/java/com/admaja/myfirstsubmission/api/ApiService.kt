@@ -19,10 +19,10 @@ interface ApiService {
     @GET("users/{username}/followers")
     fun getFollowers(
         @Path("username") username: String
-    ): Call<ArrayList<FollowersResponseItem>>
+    ): Call<ArrayList<FollowResponseItem>>
 
     @GET("users/{username}/following")
     fun getFollowing(
         @Path("username") username: String
-    ): Call<ArrayList<FollowingResponseItem>>
+    ): Call<ArrayList<FollowResponseItem>>
 }

@@ -3,15 +3,15 @@ package com.admaja.myfirstsubmission.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.admaja.myfirstsubmission.api.FollowersResponseItem
+import com.admaja.myfirstsubmission.api.FollowResponseItem
 import com.admaja.myfirstsubmission.databinding.ItemRowProfileBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
-class FollowersAdapter(private val list_followers: ArrayList<FollowersResponseItem>): RecyclerView.Adapter<FollowersAdapter.FollowersVieHolder>() {
+class FollowAdapter(private val list_followers: ArrayList<FollowResponseItem>): RecyclerView.Adapter<FollowAdapter.FollowersVieHolder>() {
 
     class FollowersVieHolder(val binding: ItemRowProfileBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bin(followers: FollowersResponseItem) {
+        fun bin(followers: FollowResponseItem) {
             binding.apply {
                 Glide.with(itemView)
                     .load(followers.avatarUrl)
@@ -24,7 +24,7 @@ class FollowersAdapter(private val list_followers: ArrayList<FollowersResponseIt
 
     }
 
-    fun setList(followers: ArrayList<FollowersResponseItem>) {
+    fun setList(followers: ArrayList<FollowResponseItem>) {
         list_followers.clear()
         list_followers.addAll(followers)
         notifyDataSetChanged()

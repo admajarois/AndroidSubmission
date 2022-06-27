@@ -7,18 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.admaja.myfirstsubmission.api.FollowersResponseItem
+import com.admaja.myfirstsubmission.api.FollowResponseItem
 import com.admaja.myfirstsubmission.databinding.FragmentFollowBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel
 import com.admaja.myfirstsubmission.ui.activity.DetailActivity
-import com.admaja.myfirstsubmission.ui.adapter.FollowersAdapter
+import com.admaja.myfirstsubmission.ui.adapter.FollowAdapter
 
 class FollowersFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var binding: FragmentFollowBinding
-    private lateinit var followersAdapter: FollowersAdapter
-    private val list = ArrayList<FollowersResponseItem>()
+    private lateinit var followersAdapter: FollowAdapter
+    private val list = ArrayList<FollowResponseItem>()
     private lateinit var username:String
 
     override fun onCreateView(
@@ -48,7 +48,7 @@ class FollowersFragment : Fragment() {
     }
 
     private fun showRecycleList() {
-        followersAdapter = FollowersAdapter(list)
+        followersAdapter = FollowAdapter(list)
         followersAdapter.notifyDataSetChanged()
         binding.apply {
             rvFollow.layoutManager = LinearLayoutManager(context)

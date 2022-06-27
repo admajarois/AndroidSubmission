@@ -2,7 +2,7 @@ package com.admaja.myfirstsubmission.api
 
 import com.google.gson.annotations.SerializedName
 
-data class FollowersResponseItem(
+data class FollowResponseItem(
 
 	@field:SerializedName("gists_url")
 	val gistsUrl: String,

@@ -7,19 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.admaja.myfirstsubmission.api.FollowingResponseItem
+import com.admaja.myfirstsubmission.api.FollowResponseItem
 import com.admaja.myfirstsubmission.databinding.FragmentFollowBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel
 import com.admaja.myfirstsubmission.ui.activity.DetailActivity
-import com.admaja.myfirstsubmission.ui.adapter.FollowingAdapter
+import com.admaja.myfirstsubmission.ui.adapter.FollowAdapter
 
 
 class FollowingFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var binding: FragmentFollowBinding
-    private lateinit var followingAdapter: FollowingAdapter
-    private val list = ArrayList<FollowingResponseItem>()
+    private lateinit var followAdapter: FollowAdapter
+    private val list = ArrayList<FollowResponseItem>()
     private lateinit var username:String
 
     override fun onCreateView(
@@ -40,7 +40,7 @@ class FollowingFragment : Fragment() {
         userViewModel.setFollowing(username)
         userViewModel.following.observe(viewLifecycleOwner, {
             if (it != null) {
-                followingAdapter.setList(it)
+                followAdapter.setList(it)
             }
         })
         userViewModel.isLoading.observe(viewLifecycleOwner, {
@@ -49,12 +49,12 @@ class FollowingFragment : Fragment() {
     }
 
     private fun showRecycleList() {
-        followingAdapter = FollowingAdapter(list)
-        followingAdapter.notifyDataSetChanged()
+        followAdapter = FollowAdapter(list)
+        followAdapter.notifyDataSetChanged()
         binding.apply {
             rvFollow.layoutManager = LinearLayoutManager(context)
             rvFollow.setHasFixedSize(true)
-            rvFollow.adapter = followingAdapter
+            rvFollow.adapter = followAdapter
         }
     }
 

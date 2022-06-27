@@ -16,11 +16,11 @@ class UserViewModel: ViewModel() {
     private val _detail = MutableLiveData<DetailResponse>()
     val detail: LiveData<DetailResponse> = _detail
 
-    private val _followers = MutableLiveData<ArrayList<FollowersResponseItem>>()
-    val followers: LiveData<ArrayList<FollowersResponseItem>> = _followers
+    private val _followers = MutableLiveData<ArrayList<FollowResponseItem>>()
+    val followers: LiveData<ArrayList<FollowResponseItem>> = _followers
 
-    private val _following = MutableLiveData<ArrayList<FollowingResponseItem>>()
-    val following: LiveData<ArrayList<FollowingResponseItem>> = _following
+    private val _following = MutableLiveData<ArrayList<FollowResponseItem>>()
+    val following: LiveData<ArrayList<FollowResponseItem>> = _following
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -36,10 +36,10 @@ class UserViewModel: ViewModel() {
     fun setFollowers(user: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getFollowers(user)
-        client.enqueue(object : Callback<ArrayList<FollowersResponseItem>>{
+        client.enqueue(object : Callback<ArrayList<FollowResponseItem>>{
             override fun onResponse(
-                call: Call<ArrayList<FollowersResponseItem>>,
-                response: Response<ArrayList<FollowersResponseItem>>
+                call: Call<ArrayList<FollowResponseItem>>,
+                response: Response<ArrayList<FollowResponseItem>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -49,7 +49,7 @@ class UserViewModel: ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<ArrayList<FollowersResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<FollowResponseItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
@@ -60,10 +60,10 @@ class UserViewModel: ViewModel() {
     fun setFollowing(user: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getFollowing(user)
-        client.enqueue(object : Callback<ArrayList<FollowingResponseItem>>{
+        client.enqueue(object : Callback<ArrayList<FollowResponseItem>>{
             override fun onResponse(
-                call: Call<ArrayList<FollowingResponseItem>>,
-                response: Response<ArrayList<FollowingResponseItem>>
+                call: Call<ArrayList<FollowResponseItem>>,
+                response: Response<ArrayList<FollowResponseItem>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -73,7 +73,7 @@ class UserViewModel: ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<ArrayList<FollowingResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<FollowResponseItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
