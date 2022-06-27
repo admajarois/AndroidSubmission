@@ -13,4 +13,6 @@
     <string name="following">Following</string>
     <string name="followers">Followers</string>
     <string name="tabs">Tabs</string>
+    <string name="favorite">Favorite</string>
+    <string name="dark_mode">Dark mode</string>
 </resources>
