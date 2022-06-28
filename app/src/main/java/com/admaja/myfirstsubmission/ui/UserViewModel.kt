@@ -28,6 +28,7 @@ class UserViewModel: ViewModel() {
     private val _noData = MutableLiveData<Boolean>()
     val noData:LiveData<Boolean> = _noData
 
+
     init {
         _noData.value = true
         _isLoading.value = false
