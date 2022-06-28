@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Switch
 import androidx.lifecycle.ViewModelProvider
@@ -51,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.search).actionView as SearchView
-        val darkMode = menu.findItem(R.id.dark_mode).actionView as SwitchMaterial
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = resources.getString(R.string.search)
@@ -69,8 +69,23 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.dark_mode -> {
+                val intent = Intent(this@MainActivity, OptionsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.favorite -> {
+                val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return true
+        }
     }
 
     private fun showRecyclerList() {
