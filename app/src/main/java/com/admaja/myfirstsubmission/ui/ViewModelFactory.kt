@@ -1,9 +1,8 @@
-package com.admaja.myfirstsubmission
+package com.admaja.myfirstsubmission.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.admaja.myfirstsubmission.data.SettingPreferences
-import com.admaja.myfirstsubmission.ui.SettingViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory(private val pref: SettingPreferences):ViewModelProvider.NewInstanceFactory() {
