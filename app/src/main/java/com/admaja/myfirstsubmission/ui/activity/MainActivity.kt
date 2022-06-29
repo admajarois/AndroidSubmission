@@ -9,15 +9,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Switch
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.admaja.myfirstsubmission.R
 import com.admaja.myfirstsubmission.ui.adapter.ListUsersAdapter
-import com.admaja.myfirstsubmission.api.ItemsItem
+import com.admaja.myfirstsubmission.data.api.ItemsItem
 import com.admaja.myfirstsubmission.databinding.ActivityMainBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel
-import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

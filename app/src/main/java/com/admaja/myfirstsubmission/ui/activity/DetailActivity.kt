@@ -6,8 +6,8 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import com.admaja.myfirstsubmission.R
-import com.admaja.myfirstsubmission.api.DetailResponse
-import com.admaja.myfirstsubmission.api.ItemsItem
+import com.admaja.myfirstsubmission.data.api.DetailResponse
+import com.admaja.myfirstsubmission.data.api.ItemsItem
 import com.admaja.myfirstsubmission.databinding.ActivityDetailBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel
 import com.admaja.myfirstsubmission.ui.adapter.SectionsPagerAdapter

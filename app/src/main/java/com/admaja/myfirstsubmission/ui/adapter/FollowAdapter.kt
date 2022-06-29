@@ -3,7 +3,7 @@ package com.admaja.myfirstsubmission.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.admaja.myfirstsubmission.api.FollowResponseItem
+import com.admaja.myfirstsubmission.data.api.FollowResponseItem
 import com.admaja.myfirstsubmission.databinding.ItemRowProfileBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions

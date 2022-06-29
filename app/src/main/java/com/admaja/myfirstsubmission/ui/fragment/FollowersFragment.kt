@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.admaja.myfirstsubmission.api.FollowResponseItem
+import com.admaja.myfirstsubmission.data.api.FollowResponseItem
 import com.admaja.myfirstsubmission.databinding.FragmentFollowBinding
 import com.admaja.myfirstsubmission.ui.UserViewModel
 import com.admaja.myfirstsubmission.ui.activity.DetailActivity

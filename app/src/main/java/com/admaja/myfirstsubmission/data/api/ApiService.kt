@@ -1,4 +1,4 @@
-package com.admaja.myfirstsubmission.api
+package com.admaja.myfirstsubmission.data.api
 
 import retrofit2.Call
 import retrofit2.http.GET

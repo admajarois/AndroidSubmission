@@ -1,4 +1,4 @@
-package com.admaja.myfirstsubmission.api
+package com.admaja.myfirstsubmission.data.api
 
 import androidx.viewbinding.BuildConfig
 import okhttp3.OkHttpClient

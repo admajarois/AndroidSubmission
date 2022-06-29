@@ -1,4 +1,4 @@
-package com.admaja.myfirstsubmission.api
+package com.admaja.myfirstsubmission.data.api
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -7,16 +7,16 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class UsersResponse(
 
-	@field:SerializedName("total_count")
+    @field:SerializedName("total_count")
 	val totalCount: Int,
 
-	@field:SerializedName("incomplete_results")
+    @field:SerializedName("incomplete_results")
 	val incompleteResults: Boolean,
 
-	@field:SerializedName("items")
+    @field:SerializedName("items")
 	val items: ArrayList<ItemsItem>,
 
-) : Parcelable
+    ) : Parcelable
 
 @Parcelize
 data class ItemsItem(
