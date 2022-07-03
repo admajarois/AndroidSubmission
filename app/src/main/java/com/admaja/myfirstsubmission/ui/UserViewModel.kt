@@ -13,9 +13,6 @@ class UserViewModel: ViewModel() {
     private val _user = MutableLiveData<ArrayList<ItemsItem>>()
     val user: LiveData<ArrayList<ItemsItem>> = _user
 
-    private val _detail = MutableLiveData<DetailResponse>()
-    val detail: LiveData<DetailResponse> = _detail
-
     private val _followers = MutableLiveData<ArrayList<FollowResponseItem>>()
     val followers: LiveData<ArrayList<FollowResponseItem>> = _followers
 
@@ -27,7 +24,6 @@ class UserViewModel: ViewModel() {
 
     private val _noData = MutableLiveData<Boolean>()
     val noData:LiveData<Boolean> = _noData
-
 
     init {
         _noData.value = true
@@ -77,29 +73,6 @@ class UserViewModel: ViewModel() {
             override fun onFailure(call: Call<ArrayList<FollowResponseItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-    }
-
-    fun detailUsers(user: String) {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService().getDetailUser(user)
-        client.enqueue(object : Callback<DetailResponse> {
-            override fun onResponse(
-                call: Call<DetailResponse>,
-                response: Response<DetailResponse>
-            ) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    _detail.value = response.body()
-                } else {
-                    Log.e(TAG, "onFailure : ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
-                _isLoading.value = false
-                Log.e(TAG, "onFailure : ${t.message.toString()}")
             }
         })
     }
