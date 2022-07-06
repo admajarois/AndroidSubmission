@@ -9,18 +9,12 @@ interface FavoriteDao {
     @Query("SELECT * FROM favorite_user")
     fun getFavorite(): LiveData<List<FavoriteEntity>>
 
-    @Query("SELECT * FROM favorite_user WHERE favorited = 1")
-    fun getFavoritedUser(): LiveData<List<FavoriteEntity>>
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertFavorite(favoriteUser: List<FavoriteEntity>)
+    fun insertFavorite(favoriteUser: FavoriteEntity)
 
-    @Update
-    fun updateFavorite(favoriteUser: FavoriteEntity)
+    @Query("DELETE FROM favorite_user WHERE id= :id")
+    fun deleteFavorite(id: Int)
 
-    @Query("DELETE FROM favorite_user WHERE favorited = 0")
-    fun deleteAll()
-
-    @Query("SELECT EXISTS(SELECT * FROM favorite_user WHERE id = :id AND favorited=1)")
+    @Query("SELECT EXISTS(SELECT * FROM favorite_user WHERE id = :id)")
     fun isUsersFavorited(id: Int): Boolean
 }

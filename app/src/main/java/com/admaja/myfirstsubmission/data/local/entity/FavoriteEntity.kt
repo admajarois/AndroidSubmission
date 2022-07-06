@@ -9,27 +9,11 @@ import androidx.room.PrimaryKey
 data class FavoriteEntity (
     @field:ColumnInfo(name = "id")
     @field:PrimaryKey
-    val id: Int?,
+    val id: Int,
 
     @field:ColumnInfo(name = "login")
-    val login: String?,
-
-    @field:ColumnInfo(name = "name")
-    val name: String?,
+    val login: String,
 
     @field:ColumnInfo(name = "avatarUrl")
-    val avatarUrl: String?,
-
-    @field:ColumnInfo(name = "repository")
-    val repository: Int?,
-
-    @field:ColumnInfo(name = "followers")
-    val followers: Int?,
-
-    @field:ColumnInfo(name = "following")
-    val following: Int?,
-
-    @field:ColumnInfo(name= "favorited")
-    var isFavorited: Boolean?
-
-    )
+    val avatarUrl: String
+)

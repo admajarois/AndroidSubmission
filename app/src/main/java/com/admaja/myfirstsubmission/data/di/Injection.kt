@@ -8,10 +8,9 @@ import com.admaja.myfirstsubmission.utils.AppExecutors
 
 object Injection {
     fun provideRepository(context: Context): FavoriteRepository {
-        val apiService = ApiConfig.getApiService()
         val database = FavoriteDatabase.getInstance(context)
         val dao = database.favoriteDao()
         val appExecutors = AppExecutors()
-        return FavoriteRepository.getInstance(apiService, dao, appExecutors)
+        return FavoriteRepository.getInstance(dao, appExecutors)
     }
 }

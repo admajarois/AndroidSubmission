@@ -13,74 +13,38 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FavoriteRepository private constructor(
-    private val apiService: ApiService,
     private val favoriteDao: FavoriteDao,
     private val appExecutors: AppExecutors
 ){
-    private val result = MediatorLiveData<Result<List<FavoriteEntity>>>()
+    fun getFavoriteUser(): LiveData<List<FavoriteEntity>> = favoriteDao.getFavorite()
 
-    fun getDetailUser(login: String): LiveData<Result<List<FavoriteEntity>>> {
-        result.value = Result.Loading
-        val client = apiService.getDetailUser(login)
-        client.enqueue(object : Callback<DetailResponse> {
-            override fun onResponse(
-                call: Call<DetailResponse>,
-                response: Response<DetailResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val detail = response.body()
-                    val favoriteList = ArrayList<FavoriteEntity>()
-                    appExecutors.diskIO.execute {
-                        val isFavorited = detail?.let { favoriteDao.isUsersFavorited(it.id) }
-                        val favorite = FavoriteEntity(
-                            detail?.id,
-                            detail?.login,
-                            detail?.name.toString(),
-                            detail?.avatarUrl,
-                            detail?.publicRepos,
-                            detail?.followers,
-                            detail?.following,
-                            isFavorited
-                        )
-                        favoriteList.add(favorite)
-                        favoriteDao.deleteAll()
-                        favoriteDao.insertFavorite(favoriteList)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
-                result.value = Result.Error(t.message.toString())
-            }
-
-        })
-        val localData = favoriteDao.getFavorite()
-        result.addSource(localData) {newData: List<FavoriteEntity> ->
-            result.value = Result.Succes(newData)
-        }
-        return result
-    }
-
-    fun getFavoritedUsers():  LiveData<List<FavoriteEntity>> {
-        return favoriteDao.getFavoritedUser()
-    }
-
-    fun setFavoritedUser(favoriteUser: FavoriteEntity, favoriteState: Boolean) {
+    fun setFavoritedUser(favoriteUser: FavoriteEntity) {
         appExecutors.diskIO.execute {
-            favoriteUser.isFavorited = favoriteState
-            favoriteDao.updateFavorite(favoriteUser)
+            favoriteDao.insertFavorite(favoriteUser)
         }
     }
+
+    fun deleteFavorite(id: Int) {
+        favoriteDao.deleteFavorite(id)
+    }
+
+    fun isFavorited(id: Int): Boolean? {
+        var favorited:Boolean? = null
+        appExecutors.diskIO.execute {
+            favorited = favoriteDao.isUsersFavorited(id)
+        }
+        return favorited
+    }
+
 
     companion object {
         @Volatile
         private var instance: FavoriteRepository? = null
         fun getInstance(
-            apiService: ApiService,
             favoriteDao: FavoriteDao,
             appExecutors: AppExecutors
         ): FavoriteRepository = instance?: synchronized(this) {
-            instance?: FavoriteRepository(apiService, favoriteDao, appExecutors)
+            instance?: FavoriteRepository(favoriteDao, appExecutors)
         }.also { instance = it }
     }
 }
