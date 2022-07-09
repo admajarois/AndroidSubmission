@@ -6,6 +6,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import androidx.lifecycle.lifecycleScope
 import com.admaja.myfirstsubmission.R
 import com.admaja.myfirstsubmission.data.Result
 import com.admaja.myfirstsubmission.data.api.DetailResponse
@@ -14,10 +17,14 @@ import com.admaja.myfirstsubmission.data.local.entity.FavoriteEntity
 import com.admaja.myfirstsubmission.databinding.ActivityDetailBinding
 import com.admaja.myfirstsubmission.ui.DetailViewModel
 import com.admaja.myfirstsubmission.ui.DetailViewModelFactory
+import com.admaja.myfirstsubmission.ui.UserViewModel
 import com.admaja.myfirstsubmission.ui.adapter.SectionsPagerAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity(){
     private lateinit var binding: ActivityDetailBinding
@@ -42,45 +49,20 @@ class DetailActivity : AppCompatActivity(){
             detailViewModelFactory
         }
         detailViewModel.detailUsers(user.login)
-        detailViewModel.detail.observe(this){
-            supportActionBar?.title = it.login
-            setUserDetail(it)
-        }
-        detailViewModel.isLoading.observe(this,{
-            showLoading(it)
-        })
 
-        val favFab = binding.favoriteFab
-        val isFavoriteExists = detailViewModel.isFavorited(user.id)
-        if (isFavoriteExists == true) {
-            favFab.setImageResource(R.drawable.ic_baseline_favorite_24)
-        } else {
-            favFab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+        detailViewModel.detail.observe(this) {result ->
+            showLoading(false)
+            setUserDetail(result)
         }
-
-        favFab.setOnClickListener{
-            if (isFavoriteExists == true) {
-                detailViewModel.deleteUser(user.id)
-                favFab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-            } else {
-                detailViewModel.saveUser(favorite = FavoriteEntity(
-                    user.id,
-                    user.login,
-                    user.avatarUrl
-                ))
-                favFab.setImageResource(R.drawable.ic_baseline_favorite_24)
-                Toast.makeText(this, "Berhasil di favoritkan!", Toast.LENGTH_SHORT).show()
-            }
+        val favoriteFab = binding.favoriteFab
+        favoriteFab.setOnClickListener{
+            Toast.makeText(this, "Tai asu", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun setUserDetail(detail: DetailResponse) {
         binding.apply {
-            tvName.text = if (detail.name != null) {
-                detail.name.toString()
-            } else {
-                detail.login
-            }
+            tvName.text = if (detail.name != null) detail.name.toString() else detail.login
             tvFollowers.text = detail.followers.toString()
             tvFollowing.text = detail.following.toString()
             tvRepository.text = detail.publicRepos.toString()
@@ -90,6 +72,7 @@ class DetailActivity : AppCompatActivity(){
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(ivPhoto)
         }
+        supportActionBar?.title = detail.login
     }
 
     private fun showLoading(isLoading: Boolean) {
