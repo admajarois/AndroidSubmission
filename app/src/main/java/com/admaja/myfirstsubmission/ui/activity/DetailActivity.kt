@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
@@ -55,8 +56,18 @@ class DetailActivity : AppCompatActivity(){
             setUserDetail(result)
         }
         val favoriteFab = binding.favoriteFab
+        val isFavorite = detailViewModel.isFavorited(user.id)
+        if (isFavorite == true) {
+            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite))
+        } else {
+            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite_outline))
+        }
         favoriteFab.setOnClickListener{
-            Toast.makeText(this, "Tai asu", Toast.LENGTH_SHORT).show()
+            detailViewModel.saveUser(FavoriteEntity(
+                user.id,
+                user.login,
+                user.avatarUrl
+            ))
         }
     }
 

@@ -11,7 +11,7 @@
         android:id="@+id/favorite"
         android:title="@string/favorite"
         app:showAsAction="always"
-        android:icon="@drawable/ic_baseline_favorite_24"/>
+        android:icon="@drawable/ic_favorite"/>
 
     <item
         android:id="@+id/dark_mode"
