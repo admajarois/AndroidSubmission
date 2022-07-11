@@ -2,6 +2,7 @@ package com.admaja.myfirstsubmission.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -56,12 +57,27 @@ class DetailActivity : AppCompatActivity(){
             setUserDetail(result)
         }
         val favoriteFab = binding.favoriteFab
-        val isFavorite = detailViewModel.isFavorited(user.id)
-        if (isFavorite == true) {
-            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite))
-        } else {
-            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite_outline))
-        }
+
+//        detailViewModel.isFavorited(user.id).observe(this) { isFavorite ->
+//            if (isFavorite != null) {
+//                when(isFavorite) {
+//                    is Result.Loading -> {
+//                        Log.d("TAG", "Loading")
+//                    }
+//                    is Result.Succes -> {
+//                        val favorited = isFavorite.data
+//                        if (favorited) {
+//                            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite))
+//                        } else {
+//                            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite_outline))
+//                        }
+//                    }
+//                    is Result.Error -> {
+//                        Toast.makeText(this, "Terjadi kesalahan ${isFavorite.error}", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//        }
         favoriteFab.setOnClickListener{
             detailViewModel.saveUser(FavoriteEntity(
                 user.id,

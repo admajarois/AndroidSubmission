@@ -16,7 +16,19 @@ class FavoriteRepository private constructor(
     private val favoriteDao: FavoriteDao,
     private val appExecutors: AppExecutors
 ){
-    fun getFavoriteUser(): LiveData<List<FavoriteEntity>> = favoriteDao.getFavorite()
+
+    private val result = MediatorLiveData<Result<List<FavoriteEntity>>>()
+    private val isFavorite = MediatorLiveData<Result<Boolean>>()
+
+    fun getFavoriteUser(): LiveData<Result<List<FavoriteEntity>>> {
+        result.value = Result.Loading
+        val localData = favoriteDao.getFavorite()
+        result.addSource(localData) {
+            newData: List<FavoriteEntity> ->
+            result.value = Result.Succes(newData)
+        }
+        return result
+    }
 
     fun setFavoritedUser(favoriteUser: FavoriteEntity) {
         appExecutors.diskIO.execute {
@@ -28,12 +40,13 @@ class FavoriteRepository private constructor(
         favoriteDao.deleteFavorite(id)
     }
 
-    fun isFavorited(id: Int): Boolean? {
-        var favorited:Boolean? = null
-        appExecutors.diskIO.execute {
-            favorited = favoriteDao.isUsersFavorited(id)
+    fun isFavorited(id: Int): LiveData<Result<Boolean>> {
+        isFavorite.value = Result.Loading
+        val favorited = favoriteDao.isUsersFavorited(id)
+        isFavorite.addSource(favorited) {
+            isFavorite.value = Result.Succes(it)
         }
-        return favorited
+        return isFavorite
     }
 
 
