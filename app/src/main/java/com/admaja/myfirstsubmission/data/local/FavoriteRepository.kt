@@ -37,7 +37,9 @@ class FavoriteRepository private constructor(
     }
 
     fun deleteFavorite(id: Int) {
-        favoriteDao.deleteFavorite(id)
+        appExecutors.diskIO.execute {
+            favoriteDao.deleteFavorite(id)
+        }
     }
 
     fun isFavorited(id: Int): LiveData<Result<Boolean>> {

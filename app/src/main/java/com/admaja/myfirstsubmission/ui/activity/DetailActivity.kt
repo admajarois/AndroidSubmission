@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 class DetailActivity : AppCompatActivity(){
     private lateinit var binding: ActivityDetailBinding
     private lateinit var detailViewModelFactory: DetailViewModelFactory
+    private var isFavorited = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,32 +59,39 @@ class DetailActivity : AppCompatActivity(){
         }
         val favoriteFab = binding.favoriteFab
 
-//        detailViewModel.isFavorited(user.id).observe(this) { isFavorite ->
-//            if (isFavorite != null) {
-//                when(isFavorite) {
-//                    is Result.Loading -> {
-//                        Log.d("TAG", "Loading")
-//                    }
-//                    is Result.Succes -> {
-//                        val favorited = isFavorite.data
-//                        if (favorited) {
-//                            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite))
-//                        } else {
-//                            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite_outline))
-//                        }
-//                    }
-//                    is Result.Error -> {
-//                        Toast.makeText(this, "Terjadi kesalahan ${isFavorite.error}", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//        }
+        detailViewModel.isFavorited(user.id).observe(this) { isFavorite ->
+            if (isFavorite != null) {
+                when(isFavorite) {
+                    is Result.Loading -> {
+                        Log.d("TAG", "Loading")
+                    }
+                    is Result.Succes -> {
+                        val favorited = isFavorite.data
+                        if (favorited) {
+                            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite))
+                            isFavorited = true
+                        } else {
+                            favoriteFab.setImageDrawable(ContextCompat.getDrawable(favoriteFab.context, R.drawable.ic_favorite_outline))
+                        }
+                    }
+                    is Result.Error -> {
+                        Toast.makeText(this, "Terjadi kesalahan ${isFavorite.error}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
         favoriteFab.setOnClickListener{
-            detailViewModel.saveUser(FavoriteEntity(
-                user.id,
-                user.login,
-                user.avatarUrl
-            ))
+            if (isFavorited) {
+                detailViewModel.deleteUser(user.id)
+                Toast.makeText(this, "Berhasil dihapus dari favorite", Toast.LENGTH_SHORT).show()
+            }else {
+                detailViewModel.saveUser(FavoriteEntity(
+                    user.id,
+                    user.login,
+                    user.avatarUrl
+                ))
+                Toast.makeText(this, "Berhasil difavoritkan", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
