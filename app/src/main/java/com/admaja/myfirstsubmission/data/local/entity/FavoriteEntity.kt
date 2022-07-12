@@ -15,8 +15,8 @@ data class FavoriteEntity (
     val id: Int?,
 
     @field:ColumnInfo(name = "login")
-    val login: String,
+    val login: String?,
 
     @field:ColumnInfo(name = "avatarUrl")
-    val avatarUrl: String
+    val avatarUrl: String?
 ): Parcelable

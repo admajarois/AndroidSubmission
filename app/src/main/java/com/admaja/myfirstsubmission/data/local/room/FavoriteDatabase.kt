@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.admaja.myfirstsubmission.data.local.entity.FavoriteEntity
 
 
-@Database(entities = [FavoriteEntity::class], version = 2, exportSchema = false)
+@Database(entities = [FavoriteEntity::class], version = 3, exportSchema = false)
 abstract class FavoriteDatabase: RoomDatabase() {
     abstract fun favoriteDao(): FavoriteDao
 

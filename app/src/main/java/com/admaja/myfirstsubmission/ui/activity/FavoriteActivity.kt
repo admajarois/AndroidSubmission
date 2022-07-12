@@ -1,11 +1,15 @@
 package com.admaja.myfirstsubmission.ui.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.admaja.myfirstsubmission.R
 import com.admaja.myfirstsubmission.data.Result
 import com.admaja.myfirstsubmission.data.local.entity.FavoriteEntity
 import com.admaja.myfirstsubmission.databinding.ActivityFavoriteBinding
@@ -46,7 +50,33 @@ class FavoriteActivity : AppCompatActivity() {
                 }
             }
         }
+        supportActionBar?.title = "Favorite"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        menu.findItem(R.id.search).setVisible(false)
+        menu.findItem(R.id.favorite).setVisible(false)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.dark_mode -> {
+                val intent = Intent(this@FavoriteActivity, OptionsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            else -> return true
+        }
+    }
+
 
     private fun showFavoriteList() {
         favoriteAdapter = FavoriteListAdapter(favorite)

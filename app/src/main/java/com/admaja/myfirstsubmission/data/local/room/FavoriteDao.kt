@@ -13,7 +13,7 @@ interface FavoriteDao {
     fun insertFavorite(favoriteUser: FavoriteEntity)
 
     @Query("DELETE FROM favorite_user WHERE id= :id")
-    fun deleteFavorite(id: Int)
+    fun deleteFavorite(id: Int?)
 
     @Query("SELECT EXISTS(SELECT * FROM favorite_user WHERE id = :id)")
     fun isUsersFavorited(id: Int?): LiveData<Boolean>

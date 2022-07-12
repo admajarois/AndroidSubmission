@@ -42,5 +42,6 @@ class OptionsActivity : AppCompatActivity() {
         switchTheme.setOnCheckedChangeListener{_: CompoundButton?, isChecked: Boolean->
             settingViewModel.saveThemeSetting(isChecked)
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

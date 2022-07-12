@@ -1,8 +1,11 @@
 package com.admaja.myfirstsubmission.ui.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -38,9 +41,13 @@ class DetailActivity : AppCompatActivity(){
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val user = intent.getParcelableExtra<ItemsItem>(EXTRA_USERS) as ItemsItem
+        val user = intent.getParcelableExtra<ItemsItem>(EXTRA_USERS)
+        val favorite = intent.getParcelableExtra<FavoriteEntity>(EXTRA_FAVORITE)
+        val login = user?.login?: favorite?.login
+        val id = user?.id?: favorite?.id
+        val avatarUrl = user?.avatarUrl?:favorite?.avatarUrl
         val bundle = Bundle()
-        bundle.putString(EXTRA_USERS, user.login)
+        bundle.putString(EXTRA_USERS, login)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, bundle)
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
@@ -51,7 +58,7 @@ class DetailActivity : AppCompatActivity(){
         val detailViewModel: DetailViewModel by viewModels {
             detailViewModelFactory
         }
-        detailViewModel.detailUsers(user.login)
+        detailViewModel.detailUsers(login)
 
         detailViewModel.detail.observe(this) {result ->
             showLoading(false)
@@ -59,7 +66,7 @@ class DetailActivity : AppCompatActivity(){
         }
         val favoriteFab = binding.favoriteFab
 
-        detailViewModel.isFavorited(user.id).observe(this) { isFavorite ->
+        detailViewModel.isFavorited(id).observe(this) { isFavorite ->
             if (isFavorite != null) {
                 when(isFavorite) {
                     is Result.Loading -> {
@@ -82,17 +89,44 @@ class DetailActivity : AppCompatActivity(){
         }
         favoriteFab.setOnClickListener{
             if (isFavorited) {
-                detailViewModel.deleteUser(user.id)
+                detailViewModel.deleteUser(id)
                 Toast.makeText(this, "Berhasil dihapus dari favorite", Toast.LENGTH_SHORT).show()
             }else {
                 detailViewModel.saveUser(FavoriteEntity(
-                    user.id,
-                    user.login,
-                    user.avatarUrl
+                    id,
+                    login,
+                    avatarUrl
                 ))
                 Toast.makeText(this, "Berhasil difavoritkan", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        menu.findItem(R.id.search).setVisible(false)
+        menu.findItem(R.id.favorite).setVisible(false)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.dark_mode -> {
+                val intent = Intent(this@DetailActivity, OptionsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            else -> return true
+        }
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 
     private fun setUserDetail(detail: DetailResponse) {
@@ -108,6 +142,7 @@ class DetailActivity : AppCompatActivity(){
                 .into(ivPhoto)
         }
         supportActionBar?.title = detail.login
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun showLoading(isLoading: Boolean) {

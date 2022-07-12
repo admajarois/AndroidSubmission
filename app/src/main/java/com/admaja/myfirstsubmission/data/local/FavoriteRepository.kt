@@ -36,7 +36,7 @@ class FavoriteRepository private constructor(
         }
     }
 
-    fun deleteFavorite(id: Int) {
+    fun deleteFavorite(id: Int?) {
         appExecutors.diskIO.execute {
             favoriteDao.deleteFavorite(id)
         }

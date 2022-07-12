@@ -53,7 +53,7 @@ class DetailViewModel(private val favoriteRepository: FavoriteRepository):ViewMo
         favoriteRepository.setFavoritedUser(favorite)
     }
 
-    fun deleteUser(id: Int) {
+    fun deleteUser(id: Int?) {
         favoriteRepository.deleteFavorite(id)
     }
 
