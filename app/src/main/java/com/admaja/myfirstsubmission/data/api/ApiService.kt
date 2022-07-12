@@ -13,7 +13,7 @@ interface ApiService {
 
     @GET("users/{username}")
     fun getDetailUser(
-        @Path("username") username: String
+        @Path("username") username: String?
     ): Call<DetailResponse>
 
     @GET("users/{username}/followers")

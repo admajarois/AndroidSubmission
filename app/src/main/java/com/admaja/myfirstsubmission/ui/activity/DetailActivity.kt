@@ -132,6 +132,7 @@ class DetailActivity : AppCompatActivity(){
 
     companion object {
         const val EXTRA_USERS = "extra_users"
+        const val EXTRA_FAVORITE = "extra_favorite"
         @StringRes
         private val TAB_TILES = intArrayOf(
             R.string.followers,

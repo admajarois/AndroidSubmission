@@ -1,6 +1,7 @@
 package com.admaja.myfirstsubmission.ui.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.admaja.myfirstsubmission.data.local.entity.FavoriteEntity
 import com.admaja.myfirstsubmission.databinding.ItemRowProfileBinding
+import com.admaja.myfirstsubmission.ui.activity.DetailActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
@@ -33,6 +35,11 @@ class FavoriteListAdapter(private val favorite: List<FavoriteEntity>): ListAdapt
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imgItemPhoto)
                 tvItemUsername.text = favoriteEntity.login
+                cardView.setOnClickListener {
+                    val intent = Intent(it.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_FAVORITE, favoriteEntity)
+                    it.context.startActivity(intent)
+                }
             }
         }
     }

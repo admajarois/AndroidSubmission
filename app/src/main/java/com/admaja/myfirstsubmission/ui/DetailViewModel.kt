@@ -24,7 +24,7 @@ class DetailViewModel(private val favoriteRepository: FavoriteRepository):ViewMo
         _isLoading.value = false
     }
 
-    fun detailUsers(user: String) {
+    fun detailUsers(user: String?) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getDetailUser(user)
         client.enqueue(object : Callback<DetailResponse> {
@@ -57,7 +57,7 @@ class DetailViewModel(private val favoriteRepository: FavoriteRepository):ViewMo
         favoriteRepository.deleteFavorite(id)
     }
 
-    fun isFavorited(id: Int) = favoriteRepository.isFavorited(id)
+    fun isFavorited(id: Int?) = favoriteRepository.isFavorited(id)
 
     companion object {
         private const val TAG = "DetailViewModel"

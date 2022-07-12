@@ -42,7 +42,7 @@ class FavoriteRepository private constructor(
         }
     }
 
-    fun isFavorited(id: Int): LiveData<Result<Boolean>> {
+    fun isFavorited(id: Int?): LiveData<Result<Boolean>> {
         isFavorite.value = Result.Loading
         val favorited = favoriteDao.isUsersFavorited(id)
         isFavorite.addSource(favorited) {
